@@ -34,7 +34,7 @@
                             <li class="list-group-item">{{ post.locale }}</li>
                         </ul>
                         <div class="card-body">
-                            <a href="#" class="card-link">event post link</a>
+                            <a href="{% url 'post_detail' post.slug %}" class="card-link">Read More</a>
                             <a href="{{ post.link }}" class="card-link">Official Link</a>
                         </div>
                     </div>
