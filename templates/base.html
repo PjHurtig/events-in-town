@@ -13,6 +13,23 @@
 
 <body>
 
+    <!-- main navigation -->
+    <!-- info about code from https://getbootstrap.com/docs/4.3/components/navbar/ -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Events in Jamtland</a>
+        <div class="container-fluid">
+            <ul class="navbar-nav mr-auto" role="navigation" aria-label="Navigation">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" aria-label="Home link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" aria-label="Add Event link">Add Event</a>
+                </li>
+            </ul>
+            <a href="#" class="btn btn-primary" role="button" aria-label="Login Link">Login</a>
+        </div>
+    </nav>
+
     {% block content %}
 
     {% endblock content %}
