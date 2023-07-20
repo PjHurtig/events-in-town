@@ -14,17 +14,23 @@
                 <div class="col-md-4">
                     <div class="card mb-4">
                         {% if 'placeholder' in post.event_image.url %}
-                        <img class="card-img-top" src="https://i.imgur.com/wA1pmla.jpg" alt="placeholder image">
+                        <div class="ratio-container">
+                            <img class="card-img-top ratio-image" src="https://i.imgur.com/wA1pmla.jpg"
+                                alt="placeholder image">
+                        </div>
                         {% else %}
-                        <img class="card-img-top" src="{{ post.event_image.url }}" alt="user uploaded image">
+                        <div class="ratio-container">
+                            <img class="card-img-top ratio-image" src="{{ post.event_image.url }}"
+                                alt="user uploaded image">
+                        </div>
                         {% endif %}
-                        <div class="card-body">
+                        <div class="card-body card-body-height">
                             <h5 class="card-title">{{ post.title }}</h5>
                             <p class="card-text">{{ post.about }}</p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">{{ post.event_date }} {{ post.event_time }} </li>
-                            <li class="list-group-item">{{ post.area }}</li>
+                            <li class="list-group-item">{{ post.get_area_display }}</li>
                             <li class="list-group-item">{{ post.locale }}</li>
                         </ul>
                         <div class="card-body">
