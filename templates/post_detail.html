@@ -4,16 +4,27 @@
 
 <!-- initial card code from https://getbootstrap.com/docs/4.3/components/card/ -->
 <div class="container-fluid">
-    <div class="card mb-3" style="max-width: 540px;">
+    <div class="card mb-12">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img src="..." class="card-img" alt="...">
+                {% if 'placeholder' in post.event_image.url %}
+                <div class="ratio-container">
+                    <img class="card-img-top ratio-image" src="https://i.imgur.com/wA1pmla.jpg" alt="placeholder image">
+                </div>
+                {% else %}
+                <div class="ratio-container">
+                    <img class="card-img-top ratio-image" src="{{ post.event_image.url }}" alt="user uploaded image">
+                </div>
+                {% endif %}
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">title</h5>
-                    <p class="card-text">about</p>
-                    <p class="card-text"><small class="text-muted">info</small></p>
+                    <h4 class="card-title">{{ post.title }}</h4>
+                    <h6 class="card-title">{{ post.event_date }} {{ post.event_time }}</h6>
+                    <h5 class="card-title">{{ post.get_area_display }} {{ post.locale }}</h5>
+                    <p class="card-text">{{ post.about }}</p>
+                    <p class="card-text"><small class="text-muted">Added: {{ post.created_on }} <br>
+                            Updated: {{post.updated_on }} </small></p>
                 </div>
             </div>
         </div>
