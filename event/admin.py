@@ -1,8 +1,11 @@
 from django.contrib import admin
 from .models import Post
-from django.utils.text import slugify
 
 
+# post admin class to generate slug with prepopulated fields, display important
+# statuses in the admin panel, filter and search the posts
+# initial code based on the django blog walkthrough project and adapted to
+# fit this sites functions
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {

@@ -18,6 +18,10 @@ AREA_CHOICES = [
 ]
 
 
+# post model for ading events as posts
+# initial code based on the django blog walkthrough project and adapted to
+# fit this sites functions. Timezone import info from:
+# https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/
 class Post(models.Model):
     title = models.CharField(max_length=200)
     artist = models.CharField(max_length=200)
