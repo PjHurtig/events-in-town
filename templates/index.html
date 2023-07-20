@@ -4,4 +4,42 @@
 
 {% block content %}
 
+<h1>Events</h1>
+<div class="container-fluid">
+    <div class="row">
+        <!-- event posts -->
+        <div class="col-12 mt-3 left">
+            <div class="row">
+            {% for post in post_list %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        {% if 'placeholder' in post.event_image.url %}
+                        <img class="card-img-top" src="https://i.imgur.com/wA1pmla.jpg" alt="placeholder image">
+                        {% else %}
+                        <img class="card-img-top" src="{{ post.event_image.url }}" alt="user uploaded image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.about }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">{{ post.event_date }} {{ post.event_time }} </li>
+                            <li class="list-group-item">{{ post.area }}</li>
+                            <li class="list-group-item">{{ post.locale }}</li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link">event post link</a>
+                            <a href="#" class="card-link">{{ post.link }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% if forloop.counter|divisible_by:3 %}
+            </div>
+            <div class="row">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 {% endblock content %}
