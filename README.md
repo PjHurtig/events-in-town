@@ -1,6 +1,6 @@
 # Events in Town
 
-## Events in Town is a webite that shows the user concerts and other events in The county of Jämtland, Sweden
+## Events in Town is a webite that shows the user time and place of concerts and other events in The county of Jämtland, Sweden
 
 Users can carry out the following actions on the site:
 
@@ -17,7 +17,7 @@ ___
 ## Table of Contents
 
 - [Events in Town](#events-in-town)
-  - [Events in Town is a webite that shows the user concerts and other events in The county of Jämtland, Sweden](#events-in-town-is-a-webite-that-shows-the-user-concerts-and-other-events-in-the-county-of-jämtland-sweden)
+  - [Events in Town is a webite that shows the user time and place of concerts and other events in The county of Jämtland, Sweden](#events-in-town-is-a-webite-that-shows-the-user-time-and-place-of-concerts-and-other-events-in-the-county-of-jämtland-sweden)
   - [Table of Contents](#table-of-contents)
   - [User Experience (UX)](#user-experience-ux)
     - [Project Goals](#project-goals)
