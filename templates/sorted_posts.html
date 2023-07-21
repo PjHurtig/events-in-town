@@ -1,1 +1,67 @@
-<h1>TEST</h1>
+{% extends "base.html" %}
+
+{% block title %}Sorted Events{% endblock title %}
+
+{% block content %}
+
+<h1>Sort Events</h1>
+<a href="{% url 'sorted_posts.html' %}?sort_by=event_date">Sort by Event Date</a> |
+<a href="{% url 'sorted_posts.html' %}?sort_by=status">Sort by Status</a> |
+<a href="{% url 'sorted_posts.html' %}?sort_by=event_type">Sort by Event Type</a>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- event posts -->
+        <div class="card mt-3 left my-width">
+            <div class="row">
+                {% for post in post_list %}
+                <div class="col-md-4">
+                    {% if 'placeholder' in post.event_image.url %}
+                    <div class="ratio-container">
+                        <img class="card-img-top ratio-image" src="https://i.imgur.com/wA1pmla.jpg"
+                            alt="placeholder image">
+                    </div>
+                    {% else %}
+                    <div class="ratio-container">
+                        <img class="card-img-top ratio-image" src="{{ post.event_image.url }}"
+                            alt="user uploaded image">
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ post.title }}</h4>
+                        <h6 class="card-title">{{ post.event_date }} {{ post.event_time }}</h6>
+                        <h5 class="card-title">{{ post.get_area_display }} {{ post.locale }}</h5>
+                        <p class="card-text">{{ post.about }}</p>
+                        <p class="card-text"><small class="text-muted">Added: {{ post.created_on }} <br>
+                                Updated: {{post.updated_on }} </small></p>
+                    </div>
+                </div>
+                <br>
+                {% if forloop.counter|divisibleby:1 %}
+            </div>
+            <div class="row">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% if is_paginated %}
+        <nav aria-label="Page Navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREVIOUS</a>
+                </li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li>
+                    <a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+
+    {% endblock content %}

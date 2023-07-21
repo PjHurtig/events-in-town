@@ -10,11 +10,21 @@ class PostList(generic.ListView):
     paginate_by = 6
 
 
+# initial code info for the "get_queryset" from
+# https://stackoverflow.com/questions/6262629/sorting-through-request-get-in-django
 class SortedPosts(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by('created_on')
     template_name = 'sorted_posts.html'
     paginate_by = 6
+
+    def get_queryset(self):
+        sort_by = self.request.GET.get('sort_by', '-created_on')
+
+        if sort_by not in ['event_date', 'event_type', 'created_on']:
+            sort_by = '-created_on'
+
+        return Post.objects.filter(status=1).order_by(sort_by)
 
 
 class PostDetail(View):
