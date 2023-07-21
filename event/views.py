@@ -1,9 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 from .models import Post
-import googlemaps
-import json
-from django.conf import settings
 
 
 class PostList(generic.ListView):
@@ -13,8 +10,14 @@ class PostList(generic.ListView):
     paginate_by = 6
 
 
-class PostDetail(View):
+class SortedPosts(generic.ListView):
+    model = Post
+    queryset = Post.objects.filter(status=1).order_by('created_on')
+    template_name = 'sorted_posts.html'
+    paginate_by = 6
 
+
+class PostDetail(View):
     def get(self, request, slug, *args, **kwargs):
         queryset = Post.objects.filter(status=1)
         post = get_object_or_404(queryset, slug=slug)
