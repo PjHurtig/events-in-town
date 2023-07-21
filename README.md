@@ -175,6 +175,7 @@ Lighthouse Results:
 
 ### Code
 
-README.md: the outline for this readme is based on Orlagh Sweeney's PP4 readme found [here](https://github.com/orlagh-sweeney/the-big-review/blob/main/README.md)
+README.md: the outline for this readme is based on Orlagh Sweeney's PP4 readme found [here](https://github.com/orlagh-sweeney/the-big-review/blob/main/README.md)https://info about sorting from: stackoverflow.com/questions/6262629/sorting-through-request-get-in-django
+info about timezones from: https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/
 
 ## Acknowledgements
