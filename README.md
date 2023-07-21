@@ -71,7 +71,7 @@ ___
 
 The project was planned and implemented following agile methodology principles. GitHub Projects was used to manage and document this process.
 
-The GitHub project can be viewed here: [Events in Town Project](link)
+The GitHub project can be viewed here: [Events in Town Project](https://github.com/users/PjHurtig/projects/6)
 
 - Core Functionality:
 - Account Management: User login and authentification.
