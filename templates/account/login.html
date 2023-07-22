@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account socialaccount %}
+{% load crispy_forms_tags %}
 
 {% block title %}Sign In{% endblock title %}
 
@@ -10,7 +11,7 @@
 {% block content %}
 
 <div class="container col-md-6">
-    <div class="card text-center margin">
+    <div class="card margin">
         <h3>{% trans "Sign In" %}</h3>
 
         <!-- {% get_providers as socialaccount_providers %}
@@ -40,6 +41,7 @@
 
         <form class="login" method="POST" action="{% url 'account_login' %}">
             {% csrf_token %}
+            {{ form | crispy }}
             {{ form.as_p }}
             {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
