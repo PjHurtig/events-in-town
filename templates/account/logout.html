@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block title %}Sign Out{% endblock title %}
 
@@ -8,13 +9,14 @@
 
 {% block content %}
 <div class="container col-md-6">
-    <div class="card text-center">
+    <div class="card margin">
         <h1>{% trans "Sign Out" %}</h1>
 
         <p>{% trans 'Are you sure you want to sign out?' %}</p>
 
         <form method="post" action="{% url 'account_logout' %}">
             {% csrf_token %}
+            {{ form | crispy }}
             {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
             {% endif %}
