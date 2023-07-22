@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 from .models import Post
-from .forms import PostForm
+from .forms import EventForm
 
 
 class PostList(generic.ListView):
@@ -42,16 +42,10 @@ class PostDetail(View):
         )
 
 
-# class AddPost(View):
-#     def get(self, request):
-#         form = PostForm()
-#         return render(request, 'add_post.html', {'form': form})
+class AddEvent(generic.CreateView):
+    form_class = EventForm
+    template_name = 'add_post.html'
 
-#     def post(self, request):
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             new_post = form.save(commit=False)
-#             new_post.author = request.user
-#             new_post.save()
-#             return redirect('post_detail', slug=new_post.slug)
-#         return render(request, 'add_post.html', {'form': form})
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
