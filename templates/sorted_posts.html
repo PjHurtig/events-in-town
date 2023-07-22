@@ -4,15 +4,63 @@
 
 {% block content %}
 
-<h1>Sort Events</h1>
-<a href="{% url 'sorted_posts.html' %}?sort_by=event_date">Sort by Event Date</a> |
-<a href="{% url 'sorted_posts.html' %}?sort_by=status">Sort by Status</a> |
-<a href="{% url 'sorted_posts.html' %}?sort_by=event_type">Sort by Event Type</a>
+<div class="text-center">
+    <h1>Sort Events</h1>
+    <a href="{% url 'sorted_posts.html' %}?sort_by=event_date">Sort by Upcoming Events</a> |
+    <a href="{% url 'sorted_posts.html' %}?sort_by=ceated_on">Sort by Newly Added</a> |
+    <a href="{% url 'sorted_posts.html' %}?sort_by=event_type">Sort by Event Type</a>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for post in post_list %}
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="ratio-container" style="width: 18rem;">
+                    {% if 'placeholder' in post.event_image.url %}
+                    <img src="https://i.imgur.com/wA1pmla.jpg" class="img-fluid rounded-start ratio-image"
+                        alt="placeholder image">
+                    {% else %}
+                    <img src="{{ post.event_image.url }}" class="img-fluid rounded-start ratio-image" alt="event image">
+                    {% endif %}
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's
+                            content.</p>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ post.title }}</h4>
+                        <h5><i class="fa-solid fa-map-location-dot"> </i> {{ post.get_area_display }} | {{ post.locale}}
+                        </h5>
+                        <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_date }} | <i
+                                class="fa-regular fa-clock"> </i> {{ post.event_time }}</h5>
+                        <p class="card-text">{{ post.about }}</p>
+                        <p class="card-text"><small class="text-muted">
+                                Added: {{ post.created_on }} <br>
+                                Updated: {{post.updated_on }}
+                            </small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+
+
+
 
 <div class="container-fluid">
     <div class="row">
         <!-- event posts -->
-        <div class="card mt-3 left my-width">
+        <!-- <div class="card mt-3 left my-width">
             <div class="row">
                 {% for post in post_list %}
                 <div class="col-md-4">
@@ -45,7 +93,7 @@
                 {% endif %}
                 {% endfor %}
             </div>
-        </div>
+        </div> -->
         {% if is_paginated %}
         <nav aria-label="Page Navigation">
             <ul class="pagination justify-content-center">

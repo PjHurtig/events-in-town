@@ -8,20 +8,19 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- event posts -->
         <div class="col-12 mt-3 left my-width">
             <div class="row">
                 {% for post in post_list %}
                 <div class="col-md-4">
                     <div class="card mb-4">
                         {% if 'placeholder' in post.event_image.url %}
-                        <div class="ratio-container">
-                            <a href="{% url 'post_detail' post.slug %}"><img class="card-img-top ratio-image"
+                        <div class="ratio-container-main">
+                            <a href="{% url 'post_detail' post.slug %}"><img class="card-img-top ratio-image-main"
                                     src="https://i.imgur.com/wA1pmla.jpg" alt="placeholder image"></a>
                         </div>
                         {% else %}
-                        <div class="ratio-container">
-                            <a href="{% url 'post_detail' post.slug %}"><img class="card-img-top ratio-image"
+                        <div class="ratio-container-main">
+                            <a href="{% url 'post_detail' post.slug %}"><img class="card-img-top ratio-image-main"
                                     src="{{ post.event_image.url }}" alt="user uploaded image"></a>
                         </div>
                         {% endif %}
