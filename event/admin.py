@@ -8,9 +8,6 @@ from .models import Post
 # fit this sites functions
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    prepopulated_fields = {
-        'slug': ('event_start', 'artist',)
-    }
     list_filter = ('status', 'created_on', 'updated_on', 'event_start', 'area')
     list_display = ('title', 'created_on', 'updated_on', 'event_start', 'area')
     search_fields = ['about', 'title', 'artist']
