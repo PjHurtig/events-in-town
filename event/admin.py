@@ -12,5 +12,5 @@ class PostAdmin(admin.ModelAdmin):
         'slug': ('event_date', 'event_time', 'artist',)
     }
     list_filter = ('status', 'created_on', 'updated_on', 'event_date', 'area')
-    list_display = ('status', 'created_on', 'updated_on', 'event_date', 'area')
+    list_display = ('title', 'created_on', 'updated_on', 'event_date', 'area')
     search_fields = ['about', 'title', 'artist']

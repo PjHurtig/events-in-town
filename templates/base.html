@@ -40,6 +40,19 @@
         </div>
     </nav>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissable fade show" id="msg" role="alert">
+                    {{ message | safe }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
     {% block content %}
 
     {% endblock content %}
@@ -64,6 +77,15 @@
         integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/c988ad8ef7.js" crossorigin="anonymous"></script>
+    <!-- timeout function to close alert message after specified time
+    code from django blog walkthrough project -->
+    <script>
+        setTimeout(function () {
+            let messages = document.getElementById("msg");
+            let alert = new bootstrap.Alert(messages);
+            alert.close();
+        }, 5000);
+    </script>
 </body>
 
 </html>
