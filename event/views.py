@@ -6,7 +6,7 @@ from .forms import PostForm
 
 class PostList(generic.ListView):
     model = Post
-    queryset = Post.objects.filter(status=1).order_by('event_date')
+    queryset = Post.objects.filter(status=1).order_by('event_start')
     template_name = 'index.html'
     paginate_by = 6
 
@@ -22,7 +22,7 @@ class SortedPosts(generic.ListView):
     def get_queryset(self):
         sort_by = self.request.GET.get('sort_by', '-created_on')
 
-        if sort_by not in ['event_date', 'event_type', 'created_on']:
+        if sort_by not in ['event_start', 'event_type', 'created_on']:
             sort_by = '-created_on'
 
         return Post.objects.filter(status=1).order_by(sort_by)

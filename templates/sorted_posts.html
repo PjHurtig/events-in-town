@@ -16,6 +16,13 @@
         {% for post in post_list %}
         <div class="card mb-3">
             <div class="row g-0">
+                {% if post.is_event_passed %}
+                {% if post.is_event_cancelled %}
+                <div class="cancelled">Cancelled</div>
+                {% else %}
+                <div class="passed">Passed</div>
+                {% endif %}
+                {% endif %}
                 <div class="ratio-container" style="width: 18rem;">
                     {% if 'placeholder' in post.event_image.url %}
                     <img src="https://i.imgur.com/wA1pmla.jpg" class="img-fluid rounded-start ratio-image"
@@ -34,8 +41,9 @@
                         <h4 class="card-title">{{ post.title }}</h4>
                         <h5><i class="fa-solid fa-map-location-dot"> </i> {{ post.get_area_display }} | {{ post.locale}}
                         </h5>
-                        <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_date }} | <i
-                                class="fa-regular fa-clock"> </i> {{ post.event_time }}</h5>
+                        <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_start|date:'D, d M Y' }} |
+                            <i class="fa-regular fa-clock"> </i> {{post.event_start|time:'H:i' }}
+                        </h5>
                         <p class="card-text">{{ post.about }}</p>
                         <p class="card-text"><small class="text-muted">
                                 Added: {{ post.created_on }} <br>
