@@ -38,7 +38,7 @@ class PostDetail(View):
             'post_detail.html',
             {
                 'post': post,
-            }
+            },
         )
 
 
@@ -59,3 +59,13 @@ class MyEvents(generic.ListView):
     def get_queryset(self):
 
         return Post.objects.filter(author=self.request.user)
+
+
+class UpdateEvent(generic.UpdateView):
+    model = Post
+    form_class = EventForm
+    template_name = 'update_post.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
