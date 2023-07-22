@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}My Events{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        {% for post in post_list %}
+        <div class="card mb-3">
+            <div class="row g-0">
+                {% if post.is_event_passed %}
+                {% if post.is_event_cancelled %}
+                <div class="cancelled">Cancelled</div>
+                {% else %}
+                <div class="passed">Passed</div>
+                {% endif %}
+                {% endif %}
+                <div class="ratio-container" style="width: 18rem;">
+                    {% if 'placeholder' in post.event_image.url %}
+                    <img src="https://i.imgur.com/wA1pmla.jpg" class="img-fluid rounded-start ratio-image"
+                        alt="placeholder image">
+                    {% else %}
+                    <img src="{{ post.event_image.url }}" class="img-fluid rounded-start ratio-image" alt="event image">
+                    {% endif %}
+                    <div class="card-body">
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ post.title }}</h4>
+                        <h5><i class="fa-solid fa-map-location-dot"> </i> {{ post.get_area_display }} | {{ post.locale}}
+                        </h5>
+                        <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_start|date:'D, d M Y' }} |
+                            <i class="fa-regular fa-clock"> </i> {{post.event_start|time:'H:i' }}
+                        </h5>
+                        <p class="card-text">{{ post.about }}</p>
+                        <p class="card-text"><small class="text-muted">
+                                Added: {{ post.created_on }} <br>
+                                Updated: {{post.updated_on }}
+                            </small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        {% if is_paginated %}
+        <nav aria-label="Page Navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREVIOUS</a>
+                </li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li>
+                    <a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+
+    {% endblock content %}

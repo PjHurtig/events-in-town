@@ -49,3 +49,13 @@ class AddEvent(generic.CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class MyEvents(generic.ListView):
+    model = Post
+    template_name = 'my_posts.html'
+    paginate_by = 3
+
+    def get_queryset(self):
+
+        return Post.objects.filter(author=self.request.user)
