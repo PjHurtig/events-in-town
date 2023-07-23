@@ -17,7 +17,7 @@ class PostList(generic.ListView):
         context['last_event_added'] = Post.objects.filter(
             status=1).order_by('-created_on').first()
         context['last_event_start'] = Post.objects.filter(
-            status=1).order_by('-event_start').first()
+            status=1).order_by('event_start').first()
         return context
 
 # initial code info for the "get_queryset" from
