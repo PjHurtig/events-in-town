@@ -12,11 +12,20 @@ class PostList(generic.ListView):
     template_name = 'index.html'
     paginate_by = 6
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['last_event_added'] = Post.objects.filter(
+            status=1).order_by('-created_on').first()
+        context['last_event_start'] = Post.objects.filter(
+            status=1).order_by('-event_start').first()
+        return context
 
 # initial code info for the "get_queryset" from
 # https://stackoverflow.com/questions/6262629/sorting-through-request-get-in-django
-# get_context_data info from
+# get_context_data info from_
 # https://stackoverflow.com/a/36950584
+
+
 class SortedPosts(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by('created_on')

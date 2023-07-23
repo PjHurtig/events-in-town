@@ -4,64 +4,109 @@
 
 {% block content %}
 
-<h1>Events</h1>
+<h1 class="text-center">Find out what happens near you!</h1>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 mt-3 left my-width">
-            <div class="row">
-                {% for post in post_list %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        {% if 'placeholder' in post.event_image.url %}
-                        <div class="ratio-container-main">
-                            <a href="{% url 'post_detail' post.slug %}"><img class="card-img-top ratio-image-main"
-                                    src="https://i.imgur.com/wA1pmla.jpg" alt="placeholder image"></a>
-                        </div>
-                        {% else %}
-                        <div class="ratio-container-main">
-                            <a href="{% url 'post_detail' post.slug %}"><img class="card-img-top ratio-image-main"
-                                    src="{{ post.event_image.url }}" alt="user uploaded image"></a>
-                        </div>
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text card-body-height">{{ post.about }}</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">{{ post.event_start }} </li>
-                            <li class="list-group-item">{{ post.get_area_display }}</li>
-                            <li class="list-group-item">{{ post.locale }}</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="{% url 'post_detail' post.slug %}" class="card-link">Read More</a>
-                            <a href="{{ post.link }}" class="card-link" target="_blank">Official Link</a>
-                        </div>
-                    </div>
-                </div>
-                {% if forloop.counter|divisibleby:3 %}
+<div class="container">
+    <div class="row justify-content-evenly">
+
+        <div class="col-md-4">
+            <div class="row text-center">
+                <h2>Next Upcoming Event</h2>
             </div>
-            <div class="row">
-                {% endif %}
-                {% endfor %}
+            <div class="card">
+                <a href="{% url 'post_detail' last_event_start.slug %}">
+                    {% if 'placeholder' in last_event_start.event_image.url %}
+                    <div class="ratio-container">
+                        <img src="https://i.imgur.com/wA1pmla.jpg" class="card-img ratio-imagex"
+                            alt="{{ last_event_start.title }}">
+                    </div>
+                    {% else %}
+                    <div class="ratio-container">
+                        <img src="{{ last_event_start.event_image.url }}" class="card-img ratio-imagex"
+                            alt="{{ last_event_start.title }}">
+                    </div>
+                    {% endif %}
+                </a>
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ last_event_start.title }}</h5>
+                    <p class="card-text">{{ last_event_start.about }}</p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">
+                        <i class="fa-regular fa-calendar-days"> </i> {{ last_event_start.event_start|date:'D, d M Y' }}
+                        |
+                        <i class="fa-regular fa-clock"> </i> {{last_event_start.event_start|time:'H:i' }}
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-map-location-dot"> </i> {{ last_event_start.get_area_display }} |
+                        {{ last_event_start.locale}}</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="card-text"><small class="text-muted">Added: {{ last_event_start.created_on }}
+                                {% if last_event_start.created_on > last_event_start.updated_on %}
+                                <br>Updated: {{last_event_start.updated_on }}
+                                {% endif %}
+                            </small></p>
+                    </li>
+                </ul>
+                <div class="card-body text-center">
+                    <a href="{% url 'post_detail' last_event_start.slug %}" class="card-link">Go to Event</a>
+                    {% if last_event_start.link != '' %}
+                    <a href="{{ last_event_start.link }}" class="card-link">Official Link</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
-        {% if is_paginated %}
-        <nav aria-label="Page Navigation">
-            <ul class="pagination justify-content-center">
-                {% if page_obj.has_previous %}
-                <li>
-                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREVIOUS</a>
-                </li>
-                {% endif %}
-                {% if page_obj.has_next %}
-                <li>
-                    <a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a>
-                </li>
-                {% endif %}
-            </ul>
-        </nav>
-        {% endif %}
-    </div>
 
-    {% endblock content %}
+        <div class="col-md-4">
+            <div class="row text-center">
+                <h2>Latest added Event</h2>
+            </div>
+            <div class="card">
+                <a href="{% url 'post_detail' last_event_added.slug %}">
+                    {% if 'placeholder' in last_event_added.event_image.url %}
+                    <div class="ratio-container">
+                        <img src="https://i.imgur.com/wA1pmla.jpg" class="card-img" alt="{{ last_event_added.title }}">
+                    </div>
+                    {% else %}
+                    <div class="ratio-container">
+                        <img src="{{ last_event_added.event_image.url }}" class="card-img"
+                            alt="{{ last_event_added.title }}">
+                    </div>
+                    {% endif %}
+                </a>
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ last_event_added.title }}</h5>
+                    <p class="card-text">{{ last_event_added.about }}</p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">
+                        <i class="fa-regular fa-calendar-days"> </i> {{ last_event_added.event_start|date:'D, d M Y' }}
+                        |
+                        <i class="fa-regular fa-clock"> </i> {{last_event_added.event_start|time:'H:i' }}
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-map-location-dot"> </i> {{ last_event_added.get_area_display }} |
+                        {{ last_event_added.locale}}</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="card-text"><small class="text-muted">Added: {{ last_event_added.created_on }}
+                                {% if last_event_added.created_on > last_event_added.updated_on %}
+                                <br>Updated: {{last_event_added.updated_on }}
+                                {% endif %}
+                            </small></p>
+                    </li>
+                </ul>
+                <div class="card-body text-center">
+                    <a href="{% url 'post_detail' last_event_added.slug %}" class="card-link">Go to Event</a>
+                    {% if last_event_added.link != '' %}
+                    <a href="{{ last_event_added.link }}" class="card-link">Official Link</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
