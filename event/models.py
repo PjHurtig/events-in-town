@@ -29,7 +29,8 @@ AREA_CHOICES = [
 # post model for ading events as posts
 # initial code based on the django blog walkthrough project and adapted to
 # fit this sites functions. Timezone import info from:
-# slug from https://django-extensions.readthedocs.io/en/latest/field_extensions.html#
+# slug from
+# https://django-extensions.readthedocs.io/en/latest/field_extensions.html#
 # https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/
 class Post(models.Model):
     title = models.CharField(max_length=200)
@@ -56,15 +57,15 @@ class Post(models.Model):
         return self.event_start < timezone.now()
 
     def is_event_cancelled(self):
-        return self.status == 'cancelled'
+        return self.event_status == 'cancelled'
 
     def update_event_status(self):
         if self.is_event_cancelled():
-            self.status = 'cancelled'
+            self.event_status = 'cancelled'
         elif self.is_event_passed():
-            self.status = 'passed'
+            self.event_status = 'passed'
         else:
-            self.status = 'initial'
+            self.event_status = 'initial'
 
         self.save()
 
