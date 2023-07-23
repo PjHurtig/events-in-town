@@ -8,16 +8,21 @@ from .forms import EventForm
 
 class PostList(generic.ListView):
     model = Post
-    queryset = Post.objects.filter(status=1).order_by('event_start')
+    queryset = Post.objects.filter(
+        status=1, event_status='initial').order_by('event_start')
     template_name = 'index.html'
     paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        for post in context['object_list']:
+            post.update_event_status()
+
         context['last_event_added'] = Post.objects.filter(
             status=1).order_by('-created_on').first()
         context['last_event_start'] = Post.objects.filter(
-            status=1).order_by('event_start').first()
+            event_status='initial').order_by('event_start').first()
         return context
 
 # initial code info for the "get_queryset" from
@@ -28,7 +33,8 @@ class PostList(generic.ListView):
 
 class SortedPosts(generic.ListView):
     model = Post
-    queryset = Post.objects.filter(status=1).order_by('created_on')
+    queryset = Post.objects.filter(
+        status=1, event_status='initial').order_by('created_on')
     template_name = 'sorted_posts.html'
     paginate_by = 6
 
@@ -38,7 +44,7 @@ class SortedPosts(generic.ListView):
         if sort_by not in ['event_start', 'event_type', 'created_on']:
             sort_by = '-created_on'
 
-        return Post.objects.filter(status=1).order_by(sort_by)
+        return Post.objects.filter(status=1, event_status='initial').order_by(sort_by)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
