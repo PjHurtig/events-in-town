@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic, View
+from django.urls import reverse_lazy
+from django.contrib import messages
 from .models import Post
 from .forms import EventForm
 
@@ -69,3 +71,21 @@ class UpdateEvent(generic.UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class DeleteEvent(generic.DeleteView):
+    model = Post
+    template_name = 'delete_post.html'
+    success_url = reverse_lazy('my_posts')
+
+    def dispatch(self, request, *args, **kwargs):
+        post = self.get_object()
+        if not request.user.is_authenticated or post.author != request.user:
+            messages.error(
+                request, "You do not have permission to delete this post.")
+            return redirect('my_posts')
+        return super().dispatch(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "Post deleted successfully.")
+        return super().delete(request, *args, **kwargs)
