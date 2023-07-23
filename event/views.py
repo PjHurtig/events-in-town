@@ -15,6 +15,8 @@ class PostList(generic.ListView):
 
 # initial code info for the "get_queryset" from
 # https://stackoverflow.com/questions/6262629/sorting-through-request-get-in-django
+# get_context_data info from
+# https://stackoverflow.com/a/36950584
 class SortedPosts(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by('created_on')
@@ -28,6 +30,11 @@ class SortedPosts(generic.ListView):
             sort_by = '-created_on'
 
         return Post.objects.filter(status=1).order_by(sort_by)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sort_by'] = self.request.GET.get('sort_by', 'created_on')
+        return context
 
 
 class PostDetail(View):
