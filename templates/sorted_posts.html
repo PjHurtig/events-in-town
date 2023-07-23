@@ -11,42 +11,51 @@
     <a href="{% url 'sorted_posts.html' %}?sort_by=event_type">Sort by Event Type</a>
 </div>
 
-<div class="container">
+
+<div class="container mt-5">
     <div class="row">
         {% for post in post_list %}
-        <div class="card mb-3">
-            <div class="row g-0">
-                {% if post.is_event_passed %}
-                {% if post.is_event_cancelled %}
-                <div class="cancelled">Cancelled</div>
-                {% else %}
-                <div class="passed">Passed</div>
-                {% endif %}
-                {% endif %}
-                <div class="ratio-container" style="width: 18rem;">
-                    {% if 'placeholder' in post.event_image.url %}
-                    <img src="https://i.imgur.com/wA1pmla.jpg" class="img-fluid rounded-start ratio-image"
-                        alt="placeholder image">
-                    {% else %}
-                    <img src="{{ post.event_image.url }}" class="img-fluid rounded-start ratio-image" alt="event image">
-                    {% endif %}
-                    <div class="card-body">
-                        <p class="card-text"></p>
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="row no-gutters">
+                    <div class="col-md-4 ratio-containerx">
+                        <a href="{% url 'post_detail' post.slug %}">
+                            {% if 'placeholder' in post.event_image.url %}
+                            <img src="https://i.imgur.com/wA1pmla.jpg" class="card-img ratio-imagex"
+                                alt="{{ post.title }}">
+                            {% else %}
+                            <img src="{{ post.event_image.url }}" class="card-img ratio-imagex" alt="{{ post.title }}">
+                            {% endif %}
+                        </a>
                     </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ post.title }}</h4>
-                        <h5><i class="fa-solid fa-map-location-dot"> </i> {{ post.get_area_display }} | {{ post.locale}}
-                        </h5>
-                        <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_start|date:'D, d M Y' }} |
-                            <i class="fa-regular fa-clock"> </i> {{post.event_start|time:'H:i' }}
-                        </h5>
-                        <p class="card-text">{{ post.about }}</p>
-                        <p class="card-text"><small class="text-muted">
-                                Added: {{ post.created_on }} <br>
-                                Updated: {{post.updated_on }}
-                            </small></p>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.about }}</p>
+                            <h5><i class="fa-solid fa-map-location-dot"> </i> {{ post.get_area_display }} |
+                                {{ post.locale}}</h5>
+                            <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_start|date:'D, d M Y' }} |
+                                <i class="fa-regular fa-clock"> </i> {{post.event_start|time:'H:i' }}
+                            </h5>
+                            <p class="card-text"><small class="text-muted">Added: {{ post.created_on }}
+                                    {% if post.created_on > post.updated_on %}
+                                    <br>Updated: {{post.updated_on }}
+                                    {% endif %}
+                                </small></p>
+                            {% if post.is_event_cancelled %}
+                            <div class="alert alert-danger" role="alert">
+                                Event Cancelled
+                            </div>
+                            {% elif post.is_event_passed %}
+                            <div class="alert alert-secondary" role="alert">
+                                Event Passed
+                            </div>
+                            {% else %}
+                            <div class="alert alert-success" role="alert">
+                                Event Upcoming
+                            </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -56,50 +65,8 @@
 </div>
 
 
-
-
-
-
-
-
-
 <div class="container-fluid">
     <div class="row">
-        <!-- event posts -->
-        <!-- <div class="card mt-3 left my-width">
-            <div class="row">
-                {% for post in post_list %}
-                <div class="col-md-4">
-                    {% if 'placeholder' in post.event_image.url %}
-                    <div class="ratio-container">
-                        <img class="card-img-top ratio-image" src="https://i.imgur.com/wA1pmla.jpg"
-                            alt="placeholder image">
-                    </div>
-                    {% else %}
-                    <div class="ratio-container">
-                        <img class="card-img-top ratio-image" src="{{ post.event_image.url }}"
-                            alt="user uploaded image">
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ post.title }}</h4>
-                        <h6 class="card-title">{{ post.event_date }} {{ post.event_time }}</h6>
-                        <h5 class="card-title">{{ post.get_area_display }} {{ post.locale }}</h5>
-                        <p class="card-text">{{ post.about }}</p>
-                        <p class="card-text"><small class="text-muted">Added: {{ post.created_on }} <br>
-                                Updated: {{post.updated_on }} </small></p>
-                    </div>
-                </div>
-                <br>
-                {% if forloop.counter|divisibleby:1 %}
-            </div>
-            <div class="row">
-                {% endif %}
-                {% endfor %}
-            </div>
-        </div> -->
         {% if is_paginated %}
         <nav aria-label="Page Navigation">
             <ul class="pagination justify-content-center">
