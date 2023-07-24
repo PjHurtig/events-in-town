@@ -4,25 +4,30 @@
 
 {% block content %}
 
+
 <h1 class="text-center">Find out what happens near you!</h1>
 
 <div class="container">
     <div class="row justify-content-evenly">
 
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="row text-center">
                 <h2>Next Upcoming Event</h2>
+                <div class="col">
+                    <a href="{% url 'sorted_posts.html' %}?sort_by=event_date" class="btn btn-primary" role="button">
+                        View All Upcoming
+                    </a>
+                </div>
             </div>
             <div class="card">
                 <a href="{% url 'post_detail' last_event_start.slug %}">
                     {% if 'placeholder' in last_event_start.event_image.url %}
-                    <div class="ratio-container">
-                        <img src="https://i.imgur.com/wA1pmla.jpg" class="card-img ratio-imagex"
-                            alt="{{ last_event_start.title }}">
+                    <div>
+                        <img src="https://i.imgur.com/wA1pmla.jpg" class="card-img" alt="{{ last_event_start.title }}">
                     </div>
                     {% else %}
-                    <div class="ratio-container">
-                        <img src="{{ last_event_start.event_image.url }}" class="card-img ratio-imagex"
+                    <div>
+                        <img src="{{ last_event_start.event_image.url }}" class="card-img"
                             alt="{{ last_event_start.title }}">
                     </div>
                     {% endif %}
@@ -58,18 +63,23 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="row text-center">
                 <h2>Latest added Event</h2>
+                <div class="col">
+                    <a href="{% url 'sorted_posts.html' %}?sort_by=created_on" class="btn btn-primary" role="button">
+                        View All Latest
+                    </a>
+                </div>
             </div>
             <div class="card">
                 <a href="{% url 'post_detail' last_event_added.slug %}">
                     {% if 'placeholder' in last_event_added.event_image.url %}
-                    <div class="ratio-container">
+                    <div>
                         <img src="https://i.imgur.com/wA1pmla.jpg" class="card-img" alt="{{ last_event_added.title }}">
                     </div>
                     {% else %}
-                    <div class="ratio-container">
+                    <div>
                         <img src="{{ last_event_added.event_image.url }}" class="card-img"
                             alt="{{ last_event_added.title }}">
                     </div>

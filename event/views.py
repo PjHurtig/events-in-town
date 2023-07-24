@@ -54,9 +54,8 @@ class SortedPosts(generic.ListView):
             post.update_event_status()
 
         context['sort_by'] = self.request.GET.get('sort_by', 'created_on')
-        context['post.event_start'] = Post.objects.filter(status=1,
-                                                          event_status__in=['initial', 'cancelled']).order_by('event_start').first()
-        return context
+        context['post.event_start'] = Post.objects.filter(status=1, event_status__in=[
+                                                          'initial', 'cancelled']).order_by('event_start').first()
         return context
 
 
