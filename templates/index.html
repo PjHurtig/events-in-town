@@ -119,13 +119,21 @@
     </div>
 </div>
 {% else %}
-
 <div class="container padding">
     <div class="row">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">No events available :(</h5>
-                <p class="card-text">There are currently no events to display. Log in and add a new event!</p>
+                <p class="card-text">There are currently no events to display.
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-primary" href="{% url 'add_post' %}" aria-label="Add Event link">Add
+                        Event!</a>
+                    {% else %}
+                    <a class="btn btn-primary" href="{% url 'account_login' %}" aria-label="Add Event link">
+                        Log In</a>
+                    and add event!
+                    {% endif %}
+                </p>
             </div>
         </div>
     </div>
