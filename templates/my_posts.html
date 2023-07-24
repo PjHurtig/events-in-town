@@ -39,7 +39,7 @@
                             </h5>
                             <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Event Page</a>
                             {% if last_event_start.link != '' %}
-                            <a href="{{ post.link }}" class="btn btn-primary">Official Link</a>
+                            <a href="{{ post.link }}" class="btn btn-primary" target="_blank">Official Link</a>
                             {% endif %}
                             <p class="card-text"><small class="text-muted">Added: {{ post.created_on }}
                                     {% if post.created_on > post.updated_on %}

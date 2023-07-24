@@ -57,7 +57,7 @@
                 <div class="card-body text-center">
                     <a href="{% url 'post_detail' last_event_start.slug %}" class="card-link">Go to Event</a>
                     {% if last_event_start.link != '' %}
-                    <a href="{{ last_event_start.link }}" class="card-link">Official Link</a>
+                    <a href="{{ last_event_start.link }}" target="_blank" class="card-link">Official Link</a>
                     {% endif %}
                 </div>
             </div>
@@ -110,7 +110,7 @@
                 <div class="card-body text-center">
                     <a href="{% url 'post_detail' last_event_added.slug %}" class="card-link">Go to Event</a>
                     {% if last_event_added.link != '' %}
-                    <a href="{{ last_event_added.link }}" class="card-link">Official Link</a>
+                    <a href="{{ last_event_added.link }}" target="_blank" class="card-link">Official Link</a>
                     {% endif %}
                 </div>
             </div>

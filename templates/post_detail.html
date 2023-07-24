@@ -23,8 +23,15 @@
                     <h6 class="card-title">{{ post.event_date }} {{ post.event_time }}</h6>
                     <h5 class="card-title">{{ post.get_area_display }} {{ post.locale }}</h5>
                     <p class="card-text">{{ post.about }}</p>
-                    <p class="card-text"><small class="text-muted">Added: {{ post.created_on }} <br>
-                            Updated: {{post.updated_on }} </small></p>
+                    <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Event Page</a>
+                    {% if last_event_start.link != '' %}
+                    <a href="{{ post.link }}" class="btn btn-primary" target="_blank">Official Link</a>
+                    {% endif %}
+                    <p class="card-text"><small class="text-muted">Added: {{ post.created_on }}
+                            {% if post.created_on > post.updated_on %}
+                            <br>Updated: {{post.updated_on }}
+                            {% endif %}
+                        </small></p>
                 </div>
             </div>
             {% if user.is_authenticated and post.author == user %}

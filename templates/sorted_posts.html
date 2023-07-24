@@ -48,6 +48,10 @@
                             <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_start|date:'D, d M Y' }} |
                                 <i class="fa-regular fa-clock"> </i> {{post.event_start|time:'H:i' }}
                             </h5>
+                            <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Event Page</a>
+                            {% if last_event_start.link != '' %}
+                            <a href="{{ post.link }}" class="btn btn-primary" target="_blank">Official Link</a>
+                            {% endif %}
                             <p class="card-text"><small class="text-muted">Added: {{ post.created_on }}
                                     {% if post.created_on > post.updated_on %}
                                     <br>Updated: {{post.updated_on }}
