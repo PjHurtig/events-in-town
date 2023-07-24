@@ -3,42 +3,50 @@
 {% block content %}
 
 {% if object_list %}
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         {% for post in post_list %}
-        <div class="card mb-3">
-            <div class="row g-0">
-                {% if post.is_event_passed %}
-                {% if post.is_event_cancelled %}
-                <div class="cancelled">Cancelled</div>
-                {% else %}
-                <div class="passed">Passed</div>
-                {% endif %}
-                {% endif %}
-                <div class="ratio-container" style="width: 18rem;">
-                    {% if 'placeholder' in post.event_image.url %}
-                    <img src="https://i.imgur.com/wA1pmla.jpg" class="img-fluid rounded-start ratio-image"
-                        alt="placeholder image">
-                    {% else %}
-                    <img src="{{ post.event_image.url }}" class="img-fluid rounded-start ratio-image" alt="event image">
-                    {% endif %}
-                    <div class="card-body">
-                        <p class="card-text"></p>
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        {% if post.is_event_cancelled %}
+                        <div class="status status-cancelled">
+                            <h3>Event Cancelled</h3>
+                        </div>
+                        {% elif post.is_event_passed %}
+                        <div class="status status-passed">
+                            <h3>Event Passed</h3>
+                        </div>
+                        {% else %}
+                        {% endif %}
+                        <a href="{% url 'post_detail' post.slug %}">
+                            {% if 'placeholder' in post.event_image.url %}
+                            <img src="https://i.imgur.com/wA1pmla.jpg" class="card-img" alt="{{ post.title }}">
+                            {% else %}
+                            <img src="{{ post.event_image.url }}" class="card-img" alt="{{ post.title }}">
+                            {% endif %}
+                        </a>
                     </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ post.title }}</h4>
-                        <h5><i class="fa-solid fa-map-location-dot"> </i> {{ post.get_area_display }} | {{ post.locale}}
-                        </h5>
-                        <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_start|date:'D, d M Y' }} |
-                            <i class="fa-regular fa-clock"> </i> {{post.event_start|time:'H:i' }}
-                        </h5>
-                        <p class="card-text">{{ post.about }}</p>
-                        <p class="card-text"><small class="text-muted">
-                                Added: {{ post.created_on }} <br>
-                                Updated: {{post.updated_on }}
-                            </small></p>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.about }}</p>
+                            <h5><i class="fa-solid fa-map-location-dot"> </i> {{ post.get_area_display }} |
+                                {{ post.locale}}</h5>
+                            <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_start|date:'D, d M Y' }} |
+                                <i class="fa-regular fa-clock"> </i> {{post.event_start|time:'H:i' }}
+                            </h5>
+                            <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Event Page</a>
+                            {% if last_event_start.link != '' %}
+                            <a href="{{ post.link }}" class="btn btn-primary">Official Link</a>
+                            {% endif %}
+                            <p class="card-text"><small class="text-muted">Added: {{ post.created_on }}
+                                    {% if post.created_on > post.updated_on %}
+                                    <br>Updated: {{post.updated_on }}
+                                    {% endif %}
+                                </small></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,6 +54,23 @@
         {% endfor %}
     </div>
 </div>
+
+{% else %}
+<div class="container padding">
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">No events available :(</h5>
+                <p class="card-text">There are currently no events to display.
+                    <a class="btn btn-primary" href="{% url 'add_post' %}" aria-label="Add Event link">Add
+                        Event!</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 
 <div class="container-fluid">
     <div class="row">
@@ -66,23 +91,5 @@
         </nav>
         {% endif %}
     </div>
-
-    {% else %}
-
-    <div class="container">
-        <div class="row">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">No events available :(</h5>
-                    <p class="card-text">There are currently no events to display.
-                        <a class="btn btn-primary" href="{% url 'add_post' %}" aria-label="Add Event link">Add
-                            Event!</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-
-    {% endblock content %}
+</div>
+{% endblock content %}

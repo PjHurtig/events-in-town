@@ -20,7 +20,7 @@
         <div class="col-md-12 mb-4">
             <div class="card">
                 <div class="row no-gutters">
-                    <div class="col-md-4 ratio-containerx">
+                    <div class="col-md-4">
                         {% if post.is_event_cancelled %}
                         <div class="status status-cancelled">
                             <h3>Event Cancelled</h3>
@@ -33,10 +33,9 @@
                         {% endif %}
                         <a href="{% url 'post_detail' post.slug %}">
                             {% if 'placeholder' in post.event_image.url %}
-                            <img src="https://i.imgur.com/wA1pmla.jpg" class="card-img ratio-imagex"
-                                alt="{{ post.title }}">
+                            <img src="https://i.imgur.com/wA1pmla.jpg" class="card-img" alt="{{ post.title }}">
                             {% else %}
-                            <img src="{{ post.event_image.url }}" class="card-img ratio-imagex" alt="{{ post.title }}">
+                            <img src="{{ post.event_image.url }}" class="card-img" alt="{{ post.title }}">
                             {% endif %}
                         </a>
                     </div>
@@ -63,12 +62,15 @@
     </div>
 </div>
 {% else %}
-<div class="container">
+<div class="container padding">
     <div class="row">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">No events available :(</h5>
-                <p class="card-text">There are currently no events to display. Log in and add a new event!</p>
+                <p class="card-text">There are currently no events to display.
+                    <a class="btn btn-primary" href="{% url 'add_post' %}" aria-label="Add Event link">Add
+                        Event!</a>
+                </p>
             </div>
         </div>
     </div>
@@ -97,5 +99,5 @@
         </nav>
         {% endif %}
     </div>
-
-    {% endblock content %}
+</div>
+{% endblock content %}
