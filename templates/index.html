@@ -33,8 +33,16 @@
                     {% endif %}
                 </a>
                 <div class="card-body text-center">
-                    <h5 class="card-title">{{ last_event_start.title }}</h5>
-                    <p class="card-text">{{ last_event_start.about }}</p>
+                    <h5 class="card-title"><a class="link-header" href="{% url 'post_detail' last_event_added.slug %}">
+                            {{last_event_added.title}}</h5></a>
+                    <div>
+                        {% if last_event_added.about|length > 225 %}
+                        <p class="card-text">{{ last_event_added.about|truncatechars:225 }}<a
+                                href="{% url 'post_detail' last_event_added.slug %}">Read More</a></p>
+                        {% else %}
+                        <p class="card-text">{{ last_event_added.about }}</p>
+                        {% endif %}
+                    </div>
                 </div>
                 <ul class="list-group list-group-flush text-center">
                     <li class="list-group-item">
