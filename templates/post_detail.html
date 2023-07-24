@@ -23,7 +23,6 @@
                     <h6 class="card-title">{{ post.event_date }} {{ post.event_time }}</h6>
                     <h5 class="card-title">{{ post.get_area_display }} {{ post.locale }}</h5>
                     <p class="card-text">{{ post.about }}</p>
-                    <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Event Page</a>
                     {% if last_event_start.link != '' %}
                     <a href="{{ post.link }}" class="btn btn-primary" target="_blank">Official Link</a>
                     {% endif %}
