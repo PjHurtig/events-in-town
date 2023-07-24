@@ -4,16 +4,16 @@
 
 <!-- initial card code from https://getbootstrap.com/docs/4.3/components/card/ -->
 <div class="container-fluid">
-    <div class="card mb-12">
+    <div class="card margin">
         <div class="row no-gutters">
             <div class="col-md-4">
                 {% if 'placeholder' in post.event_image.url %}
-                <div class="ratio-container">
-                    <img class="card-img-top ratio-image" src="https://i.imgur.com/wA1pmla.jpg" alt="placeholder image">
+                <div>
+                    <img class="card-img-top" src="https://i.imgur.com/wA1pmla.jpg" alt="placeholder image">
                 </div>
                 {% else %}
                 <div class="ratio-container">
-                    <img class="card-img-top ratio-image" src="{{ post.event_image.url }}" alt="user uploaded image">
+                    <img class="card-img-top" src="{{ post.event_image.url }}" alt="user uploaded image">
                 </div>
                 {% endif %}
             </div>
@@ -28,8 +28,12 @@
                 </div>
             </div>
             {% if user.is_authenticated and post.author == user %}
-            <a class="btn btn-warning" href="{% url 'update_post' post.slug %}">Update</a>
-            <a class="btn btn-danger" href="{% url 'delete_post' post.slug %}">Delete</a>
+            <div class="col text-center">
+                <a class="btn btn-warning" role="button" aria-label="Update post link"
+                    href="{% url 'update_post' post.slug %}">Update</a>
+                <a class="btn btn-danger" role="button" aria-label="Delete post link"
+                    href="{% url 'delete_post' post.slug %}">Delete</a>
+            </div>
             {% endif %}
         </div>
     </div>
