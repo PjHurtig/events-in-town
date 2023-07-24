@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic, View
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .models import Post
-from .forms import EventForm
+from .models import Post, Review
+from .forms import EventForm, ReviewForm
 
 
 class PostList(generic.ListView):

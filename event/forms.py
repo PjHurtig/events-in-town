@@ -1,4 +1,4 @@
-from .models import Post
+from .models import Post, Review
 from django import forms
 
 
