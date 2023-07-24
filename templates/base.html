@@ -15,6 +15,7 @@
 </head>
 
 <body>
+
     <!-- main navigation -->
     <!-- info about code from https://getbootstrap.com/docs/4.3/components/navbar/ -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -58,7 +59,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 {% for message in messages %}
-                <div class="alert {{ message.tags }} alert-dismissable fade show" id="msg" role="alert">
+                <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
                     {{ message | safe }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -94,11 +95,13 @@
     <!-- timeout function to close alert message after specified time
     code from django blog walkthrough project -->
     <script>
-        setTimeout(function () {
-            let messages = document.getElementById("msg");
-            let alert = new bootstrap.Alert(messages);
-            alert.close();
-        }, 5000);
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                let messages = document.getElementById("msg");
+                let alert = new bootstrap.Alert(messages);
+                alert.close();
+            }, 5000);
+        });
     </script>
 </body>
 
