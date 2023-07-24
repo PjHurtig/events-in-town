@@ -21,7 +21,11 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ post.title }}</h4>
                     <h6 class="card-title">{{ post.event_date }} {{ post.event_time }}</h6>
-                    <h5 class="card-title">{{ post.get_area_display }} {{ post.locale }}</h5>
+                    <h5><i class="fa-solid fa-map-location-dot"> </i> {{ post.get_area_display }} |
+                        {{ post.locale}}</h5>
+                    <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_start|date:'D, d M Y' }} |
+                        <i class="fa-regular fa-clock"> </i> {{post.event_start|time:'H:i' }}
+                    </h5>
                     <p class="card-text">{{ post.about }}</p>
                     {% if last_event_start.link != '' %}
                     <a href="{{ post.link }}" class="btn btn-primary" target="_blank">Official Link</a>
