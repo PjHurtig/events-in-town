@@ -76,12 +76,52 @@ class PostDetail(View):
     def get(self, request, slug, *args, **kwargs):
         queryset = Post.objects.filter(status=1)
         post = get_object_or_404(queryset, slug=slug)
-
+        event_review_list = Review.objects.filter(event=post)
+        sum = 0
+        for review in event_review_list:
+            sum += review.review
+        review_score = sum/len(event_review_list)
+        try:
+            user_review = Review.objects.get(author=request.user)
+            review_form = ReviewForm(initial={'review': user_review.review})
+        except Review.DoesNotExist:
+            review_form = ReviewForm()
         return render(
             request,
             'post_detail.html',
             {
                 'post': post,
+                'review_form': review_form,
+                'review_score': review_score
+            },
+        )
+
+    def post(self, request, slug, *args, **kwargs):
+        review_starts = request.POST.get('review', 1)
+        queryset = Post.objects.filter(status=1)
+        event = get_object_or_404(queryset, slug=slug)
+        author = request.user
+        try:
+            user_review = Review.objects.get(author=request.user)
+            user_review.review = review_starts
+            user_review.save()
+            review_form = ReviewForm(initial={'review': user_review.review})
+        except Review.DoesNotExist:
+            review = Review(author=author, event=event, review=review_starts)
+            review.save()
+            review_form = ReviewForm(initial={'review': review.review})
+            event_review_list = Review.objects.filter(event=event)
+            sum = 0
+            for review in event_review_list:
+                sum += review.review
+            review_score = sum/len(event_review_list)
+        return render(
+            request,
+            'post_detail.html',
+            {
+                'post': event,
+                'review_form': review_form,
+                'review_score': review_score
             },
         )
 
