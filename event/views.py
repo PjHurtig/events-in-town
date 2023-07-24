@@ -34,7 +34,7 @@ class PostList(generic.ListView):
 class SortedPosts(generic.ListView):
     model = Post
     queryset = Post.objects.filter(
-        status=1, event_status='initial').order_by('created_on')
+        status=1, event_status__in=['initial', 'cancelled']).order_by('created_on')
     template_name = 'sorted_posts.html'
     paginate_by = 6
 
@@ -44,11 +44,19 @@ class SortedPosts(generic.ListView):
         if sort_by not in ['event_start', 'event_type', 'created_on']:
             sort_by = '-created_on'
 
-        return Post.objects.filter(status=1, event_status='initial').order_by(sort_by)
+        return Post.objects.filter(
+            status=1, event_status__in=['initial', 'cancelled']).order_by(sort_by)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        for post in context['object_list']:
+            post.update_event_status()
+
         context['sort_by'] = self.request.GET.get('sort_by', 'created_on')
+        context['post.event_start'] = Post.objects.filter(status=1,
+                                                          event_status__in=['initial', 'cancelled']).order_by('event_start').first()
+        return context
         return context
 
 

@@ -53,17 +53,17 @@ class Post(models.Model):
     event_status = models.CharField(
         max_length=10, choices=EVENT_STATUS, default='initial')
 
-    def is_event_passed(self):
-        return self.event_start < timezone.now()
-
     def is_event_cancelled(self):
         return self.event_status == 'cancelled'
 
+    def is_event_passed(self):
+        return self.event_start < timezone.now()
+
     def update_event_status(self):
-        if self.is_event_cancelled():
-            self.event_status = 'cancelled'
-        elif self.is_event_passed():
+        if self.is_event_passed():
             self.event_status = 'passed'
+        elif self.is_event_cancelled():
+            self.event_status = 'cancelled'
         else:
             self.event_status = 'initial'
 
