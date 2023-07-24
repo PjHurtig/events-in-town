@@ -92,7 +92,7 @@ class AddEvent(generic.CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        messages.success(self.request, 'Event suceessfully submitted!')
+        messages.success(self.request, 'Event Suceessfully Submitted!')
         return super().form_valid(form)
 
 
@@ -113,6 +113,7 @@ class UpdateEvent(generic.UpdateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.success(self.request, 'Event suceessfully Updated!')
         return super().form_valid(form)
 
 
