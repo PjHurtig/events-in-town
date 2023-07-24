@@ -33,19 +33,31 @@ class PostList(generic.ListView):
 
 class SortedPosts(generic.ListView):
     model = Post
-    queryset = Post.objects.filter(
-        status=1, event_status__in=['initial', 'cancelled']).order_by('created_on')
     template_name = 'sorted_posts.html'
     paginate_by = 6
 
     def get_queryset(self):
         sort_by = self.request.GET.get('sort_by', '-created_on')
 
-        if sort_by not in ['event_start', 'event_type', 'created_on']:
+        if sort_by not in ['event_start',
+                           '-event_start',
+                           'created_on',
+                           '-created_on']:
             sort_by = '-created_on'
 
-        return Post.objects.filter(
-            status=1, event_status__in=['initial', 'cancelled']).order_by(sort_by)
+        queryset = Post.objects.filter(
+            status=1, event_status__in=['initial', 'cancelled'])
+
+        if sort_by == 'event_start':
+            queryset = queryset.order_by('event_start')
+        elif sort_by == '-event_start':
+            queryset = queryset.order_by('-event_start')
+        elif sort_by == 'created_on':
+            queryset = queryset.order_by('created_on')
+        elif sort_by == '-created_on':
+            queryset = queryset.order_by('-created_on')
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,9 +65,10 @@ class SortedPosts(generic.ListView):
         for post in context['object_list']:
             post.update_event_status()
 
-        context['sort_by'] = self.request.GET.get('sort_by', 'created_on')
-        context['post.event_start'] = Post.objects.filter(status=1, event_status__in=[
-                                                          'initial', 'cancelled']).order_by('event_start').first()
+        context['sort_by'] = self.request.GET.get('sort_by', '-created_on')
+        context['post.event_start'] = Post.objects.filter(
+            status=1, event_status__in=['initial', 'cancelled']).order_by(
+                '-event_start').first()
         return context
 
 

@@ -14,7 +14,7 @@
             <div class="row text-center">
                 <h2>Next Upcoming Event</h2>
                 <div class="col">
-                    <a href="{% url 'sorted_posts.html' %}?sort_by=event_date" class="btn btn-primary" role="button">
+                    <a href="{% url 'sorted_posts.html' %}?sort_by=event_start" class="btn btn-primary" role="button">
                         View All Upcoming
                     </a>
                 </div>
@@ -67,7 +67,7 @@
             <div class="row text-center">
                 <h2>Latest added Event</h2>
                 <div class="col">
-                    <a href="{% url 'sorted_posts.html' %}?sort_by=created_on" class="btn btn-primary" role="button">
+                    <a href="{% url 'sorted_posts.html' %}?sort_by=-created_on" class="btn btn-primary" role="button">
                         View All Latest
                     </a>
                 </div>
