@@ -2,6 +2,7 @@
 {% block title %}My Events{% endblock %}
 {% block content %}
 
+{% if object_list %}
 <div class="container">
     <div class="row">
         {% for post in post_list %}
@@ -65,5 +66,23 @@
         </nav>
         {% endif %}
     </div>
+
+    {% else %}
+
+    <div class="container">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">No events available :(</h5>
+                    <p class="card-text">There are currently no events to display.
+                        <a class="btn btn-primary" href="{% url 'add_post' %}" aria-label="Add Event link">Add
+                            Event!</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
 
     {% endblock content %}
