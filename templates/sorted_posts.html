@@ -42,7 +42,9 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ post.about }}</p>
+                            <div class="cutoff">
+                                <p class="card-text">{{ post.about }}</p>
+                            </div>
                             <h5><i class="fa-solid fa-map-location-dot"> </i> {{ post.get_area_display }} |
                                 {{ post.locale}}</h5>
                             <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_start|date:'D, d M Y' }} |
