@@ -86,16 +86,3 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class Review(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name="event_review")
-    event = models.ForeignKey(Post, on_delete=models.PROTECT,
-                              related_name="event")
-    review = models.IntegerField(choices=REVIEW_TYPES, default=1)
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.event.title} -- {self.author.username} -- {self.review}"
