@@ -87,14 +87,18 @@
     {% endblock content %}
 
     <!-- Footer with back-to-top-link and social media -->
-    <footer class="bg-dark text-center" role="footer">
+    <footer class="bg-dark text-center " role="footer">
         <div class="container">
-            <ul class="list-inline" role="footer navigation" aria-label="Footer Navigation">
-                <li class="list-inline-item"><a href="https://www.facebook.com/" target="_blank"
-                        aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a></li>
-                <li class="list-inline-item"><a href="https://www.instagram.com/" target="_blank"
-                        aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
-                <li class="list-inline-item"><a href="#top" aria-label="Back to Top">Back to Top</a></li>
+            <ul class="list-inline margin-none" role="footer navigation" aria-label="Footer Navigation">
+                <div class="padding">
+                    <li class="list-inline-item"><a href="#top" aria-label="Back to Top">Back to Top</a></li>
+                </div>
+                <div class="padding-bottom">
+                    <li class="list-inline-item"><a href="https://www.facebook.com/" target="_blank"
+                            aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.instagram.com/" target="_blank"
+                            aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                </div>
             </ul>
         </div>
     </footer>

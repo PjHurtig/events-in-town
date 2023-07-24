@@ -49,9 +49,18 @@ body {
     text-align: center;
 }
 
+.padding-bottom {
+    padding-top: 0;
+    padding-bottom: 1rem;
+}
+
 .margin {
     margin: 2rem;
     padding: 1rem;
+}
+
+.margin-none {
+    margin: 0;
 }
 
 .status {
