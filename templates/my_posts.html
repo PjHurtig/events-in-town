@@ -55,6 +55,14 @@
                                     <br>Updated: {{post.updated_on }}
                                     {% endif %}
                                 </small></p>
+                            {% if user.is_authenticated and post.author == user %}
+                            <div class="col">
+                                <a class="btn btn-warning" role="button" aria-label="Update post link"
+                                    href="{% url 'update_post' post.slug %}">Update</a>
+                                <a class="btn btn-danger" role="button" aria-label="Delete post link"
+                                    href="{% url 'delete_post' post.slug %}">Delete</a>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
