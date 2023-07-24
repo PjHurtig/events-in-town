@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="text-center">
+<div class="text-center padding">
     <h1>All Events</h1>
     <h4>Sort Events</h4>
     <a href="{% url 'sorted_posts.html' %}?sort_by=event_start">Upcoming Events (Next)</a> |
@@ -43,7 +43,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><a class="link-header"
                                     href="{% url 'post_detail' post.slug %}">{{post.title }}</h5></a>
-                            <div class="cutoff">
+                            <div>
                                 {% if post.about|length > 225 %}
                                 <p class="card-text">{{ post.about|truncatechars:225 }}<a
                                         href="{% url 'post_detail' post.slug %}">Read More</a></p>

@@ -4,6 +4,7 @@
 
 {% if object_list %}
 <div class="container mt-5">
+    <h2 class="padding">My Events</h2>
     <div class="row">
         {% for post in post_list %}
         <div class="col-md-12 mb-4">
@@ -30,8 +31,16 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ post.about }}</p>
+                            <h5 class="card-title"><a class="link-header"
+                                    href="{% url 'post_detail' post.slug %}">{{post.title }}</h5></a>
+                            <div>
+                                {% if post.about|length > 225 %}
+                                <p class="card-text">{{ post.about|truncatechars:225 }}<a
+                                        href="{% url 'post_detail' post.slug %}">Read More</a></p>
+                                {% else %}
+                                <p class="card-text">{{ post.about }}</p>
+                                {% endif %}
+                            </div>
                             <h5><i class="fa-solid fa-map-location-dot"> </i> {{ post.get_area_display }} |
                                 {{ post.locale}}</h5>
                             <h5><i class="fa-regular fa-calendar-days"> </i> {{ post.event_start|date:'D, d M Y' }} |
