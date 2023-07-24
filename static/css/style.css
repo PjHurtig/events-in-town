@@ -77,3 +77,7 @@ body {
     text-decoration: none;
     color: black;
 }
+
+.color-light {
+    color: darkgrey;
+}

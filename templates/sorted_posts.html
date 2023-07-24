@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<div class="text-center padding">
-    <h1>All Events</h1>
+<div class="text-center">
+    <h1 class="padding">All Events</h1>
     <h4>Sort Events</h4>
     <a href="{% url 'sorted_posts.html' %}?sort_by=event_start">Upcoming Events (Next)</a> |
     <a href="{% url 'sorted_posts.html' %}?sort_by=-event_start">Upcoming Events (Last)</a> |
