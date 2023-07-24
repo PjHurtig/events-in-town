@@ -116,8 +116,13 @@
         document.addEventListener("DOMContentLoaded", function () {
             setTimeout(function () {
                 let messages = document.getElementById("msg");
-                let alert = new bootstrap.Alert(messages);
-                alert.close();
+                try {
+                    let alert = new bootstrap.Alert(messages);
+                    alert.close();
+                } catch {
+                    return 0;
+                }
+
             }, 5000);
         });
     </script>
