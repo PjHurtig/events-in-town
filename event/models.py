@@ -26,12 +26,21 @@ AREA_CHOICES = [
 ]
 
 
+REVIEW_TYPES = ((1, '1 Star'),
+                (2, '2 Stars'),
+                (3, '3 Stars'),
+                (4, '4 Stars'),
+                (5, '5 Stars'),
+                )
+
 # post model for ading events as posts
 # initial code based on the django blog walkthrough project and adapted to
 # fit this sites functions. Timezone import info from:
 # slug from
 # https://django-extensions.readthedocs.io/en/latest/field_extensions.html#
 # https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/
+
+
 class Post(models.Model):
     title = models.CharField(max_length=200)
     artist = models.CharField(max_length=200)
@@ -77,3 +86,16 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Review(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
+                               related_name="event_review")
+    event = models.ForeignKey(Post, on_delete=models.PROTECT,
+                              related_name="event")
+    review = models.IntegerField(choices=REVIEW_TYPES, default=1)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.event.title} -- {self.author.username} -- {self.review}"
