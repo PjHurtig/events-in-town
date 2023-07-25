@@ -206,9 +206,6 @@ Initial wireframe for mobile with [Balsamiq](https://balsamiq)
 - [W3C Markup Validator](https://validator.w3.org/): was used throughout the project to validate HTML code.
 - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/): was used throughout the project to validate CSS code.
 - [CI Python Linter](https://pep8ci.herokuapp.com/): was used to validate python code.
-- [JSHint](https://jshint.com/): this was used to validate Javascript code.
-- [Responsive Design Checker](https://www.responsivedesignchecker.com/): this was used to check responsiveness on various device sizes.
-- [Am I Respsonsive?](https://ui.dev/amiresponsive): this was used to create an image to show how the site looks on different device sizes for this README file.
 
 ## Testing
 
