@@ -6,6 +6,7 @@
 
 
 <h1 class="text-center padding">Find out what happens near you!</h1>
+<!-- check if there are post and displays message if not -->
 {% if object_list %}
 <div class="container padding">
     <div class="row justify-content-evenly">
@@ -97,6 +98,7 @@
                     <h5 class="card-title"><a class="link-header" href="{% url 'post_detail' last_event_added.slug %}">
                             {{last_event_added.title}}</h5></a>
                     <div>
+                        <!-- cut off text and link to full text -->
                         {% if last_event_added.about|length > 225 %}
                         <p class="card-text">{{ last_event_added.about|truncatechars:225 }}<a
                                 href="{% url 'post_detail' last_event_added.slug %}">Read More</a></p>
@@ -134,6 +136,7 @@
 
     </div>
 </div>
+<!-- no event available message -->
 {% else %}
 <div class="container padding">
     <div class="row">

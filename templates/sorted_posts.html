@@ -12,7 +12,7 @@
     <a href="{% url 'sorted_posts.html' %}?sort_by=created_on">Date Added (Oldest)</a> |
     <a href="{% url 'sorted_posts.html' %}?sort_by=-created_on">Date Added (Latest)</a>
 </div>
-
+<!-- check if there are post and displays message if not -->
 {% if object_list %}
 <div class="container mt-5">
     <div class="row">
@@ -44,6 +44,7 @@
                             <h5 class="card-title"><a class="link-header"
                                     href="{% url 'post_detail' post.slug %}">{{post.title }}</h5></a>
                             <div>
+                                <!-- cut off text and link to full text -->
                                 {% if post.about|length > 225 %}
                                 <p class="card-text">{{ post.about|truncatechars:225 }}<a
                                         href="{% url 'post_detail' post.slug %}">Read More</a></p>
@@ -73,6 +74,7 @@
         {% endfor %}
     </div>
 </div>
+<!-- no event available message -->
 {% else %}
 <div class="container padding">
     <div class="row">
