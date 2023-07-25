@@ -2,7 +2,7 @@
 
 ## Events in Town is a webite that shows the user time and place of concerts and other events in The county of Jämtland, Sweden
 
-![responsive](https://i.imgur.com/3HCf0OP.png)>
+![responsive](https://i.imgur.com/3HCf0OP.png)
 
 Users can carry out the following actions on the site:
 
@@ -411,4 +411,7 @@ Deployment to Heroku was completed using the following steps:
 - info about sorting from: [stackoverflow](https://stackoverflow.com/questions/6262629/sorting-through-request-get-in-django)
 - info about timezones from: [djangoproject](https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/)
 - initial code for add events, my events, update and delete views from [AliOKeeffe's](https://github.com/AliOKeeffe) PP4 project found [here](https://github.com/AliOKeeffe/PP4_My_Meal_Planner)
-- pagination and initial post model from django-blog walkthrough project
+- pagination and initial post model code from django-blog walkthrough project
+- autoslugfield info from [django-extensions](https://django-extensions.readthedocs.io/en/latest/field_extensions.html#)
+- additional info about views, form and model from [stackoverflow](https://stackoverflow.com/questions/68968059/how-can-i-allow-users-to-create-their-own-posts-in-django)
+- Fix of TypeError with help from mentor
